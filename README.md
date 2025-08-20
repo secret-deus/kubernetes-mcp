@@ -16,7 +16,8 @@
 
 ```
 MCP/
-├── kubernetes_mcp_core.py      # 核心模块：包含所有工具函数实现
+├── core/
+│   └── kubernetes_mcp_core.py  # 核心模块：包含所有工具函数实现
 ├── httpserver.py               # HTTP 传输版本的 MCP 服务器
 ├── stdio.py                    # STDIO 传输版本的 MCP 服务器
 ├── simple_mcp_test.py          # 简单的测试客户端
@@ -27,7 +28,7 @@ MCP/
 
 ### 核心架构
 
-- **`kubernetes_mcp_core.py`**: 核心模块，包含所有 Kubernetes 和 Helm 操作的实现
+- **`core/kubernetes_mcp_core.py`**: 核心模块，包含所有 Kubernetes 和 Helm 操作的实现
 - **`httpserver.py`**: HTTP 传输模式的服务器入口
 - **`stdio.py`**: STDIO 传输模式的服务器入口（现在支持完整功能）
 
@@ -165,7 +166,7 @@ uv run simple_mcp_test.py
 
 项目采用模块化设计，将核心功能与传输层分离：
 
-- **核心模块** (`kubernetes_mcp_core.py`): 包含所有业务逻辑和工具实现
+- **核心模块** (`core/kubernetes_mcp_core.py`): 包含所有业务逻辑和工具实现
 - **传输层** (`httpserver.py`, `stdio.py`): 负责不同的通信协议
 
 ### 优势
@@ -174,6 +175,13 @@ uv run simple_mcp_test.py
 2. **易于维护**: 业务逻辑集中在核心模块中
 3. **功能一致**: STDIO 和 HTTP 版本提供完全相同的功能
 4. **扩展性**: 可以轻松添加新的传输模式
+5. **清晰分层**: 核心逻辑与传输协议完全分离
+
+### 设计原则
+
+- **单一职责**: 每个模块都有明确的职责边界
+- **依赖倒置**: 传输层依赖于核心模块，而非相反
+- **开放封闭**: 对扩展开放（新传输模式），对修改封闭（核心逻辑）
 
 ## 📖 使用示例
 
